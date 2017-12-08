@@ -118,9 +118,20 @@ int main() {
           double cte = polyeval(coeffs,0); // O because shifted
           double epsi = - atan(coeffs[1]);
 
+          ///////////////
+          /// DEAL WITH LATENCY ///
+          /////////////
+          double dt =0.1; //100 ms
+          double Lf = 2.67;
+          double current_px = 0.0 + v * dt;
+          double current_py = 0.0;
+          double current_psi = 0.0 + v * (-steer_value) / Lf * dt;
+          double current_v = v + throttle_value * dt;
+          double current_cte = cte + v * sin(epsi) * dt;
+          double current_epsi = epsi + v * (-steer_value) / Lf * dt;
 
           Eigen::VectorXd state(6);
-          state <<0,0,0,v,cte,epsi;
+          state <<current_px,current_py,current_psi,current_v,current_cte,current_epsi;
 
           /*
           * TODO: Calculate steering angle and throttle using MPC.
@@ -155,7 +166,6 @@ int main() {
           }
 
           json msgJson;
-          double Lf = 2.67;
           // NOTE: Remember to divide by deg2rad(25) before you send the steering value back.
           // Otherwise the values will be in between [-deg2rad(25), deg2rad(25] instead of [-1, 1].
           steer_value = vars[0]/(deg2rad(25)*Lf);

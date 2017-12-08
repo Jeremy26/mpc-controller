@@ -23,7 +23,7 @@ const double Lf = 2.67;
 ////
 // NOTE: feel free to play around with this
 // or do something completely different
-double ref_v = 80;
+double ref_v = 100;
 double ref_cte = 0;
 double ref_epsi = 0;
 
