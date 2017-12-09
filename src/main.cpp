@@ -94,8 +94,7 @@ int main() {
           double steer_value = j[1]["steering_angle"];
           double throttle_value = j[1]["throttle"];
 
-          // DO TRANSFORMATION & ROTATION IN ORDER TO GET GOOD COORDINATES
-          // WE FOUND OURSELVES WITH X=0,Y=0,PSI=0
+          // DO TRANSFORMATION & ROTATION IN ORDER TO GET MATCHING COORDINATES
 
           for(int i =0; i<ptsx.size();i++)
           {
@@ -118,9 +117,7 @@ int main() {
           double cte = polyeval(coeffs,0); // O because shifted
           double epsi = - atan(coeffs[1]);
 
-          ///////////////
-          /// DEAL WITH LATENCY ///
-          /////////////
+          // To deal with Latency, we define the model 100ms ahead
           double dt =0.1; //100 ms
           double Lf = 2.67;
           double current_px = 0.0 + v * dt;
@@ -133,12 +130,7 @@ int main() {
           Eigen::VectorXd state(6);
           state <<current_px,current_py,current_psi,current_v,current_cte,current_epsi;
 
-          /*
-          * TODO: Calculate steering angle and throttle using MPC.
-          *
-          * Both are in between [-1, 1].
-          *
-          */
+          // We pass these values to the solver
           auto vars = mpc.Solve(state, coeffs);
          
          //Display the waypoints/reference line
@@ -153,7 +145,7 @@ int main() {
           }
 
           //Display the MPC predicted trajectory 
-          //The Green Line
+          //The Green Mile
           vector<double> mpc_x_vals;
           vector<double> mpc_y_vals;
           for (int i=2;i<vars.size();i++){
