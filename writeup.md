@@ -129,4 +129,7 @@ fg[2 + psi_start + t] = psi1 - (psi0 - v0 * delta0 / Lf * dt);
 We now have our final car going to the track at 100 mph for hundreds of laps.
 ![alt text][image4]
 
+NOTE :
+My first submission was wrong because it crashed on the reviewer's computer. Here is a proof of the project working on mine.
+https://github.com/Jeremy26/mpc-controller/blob/master/report/drive_a_lap.mov
 ---
