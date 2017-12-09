@@ -114,7 +114,7 @@ int main() {
           auto coeffs = polyfit(ptsx_transform,ptsy_transform,3);
           
           // Calculate CTE and EPSI 
-          double cte = polyeval(coeffs,0); // O because shifted
+          double cte = polyeval(coeffs,0); 
           double epsi = - atan(coeffs[1]);
 
           // To deal with Latency, we define the model 100ms ahead
